@@ -4,7 +4,17 @@ import { Link } from 'react-router-dom'
 import styles from './Header.module.scss'
 import imgLogo from '../../../assets/imgs/logo.png'
 
-const Header: FC = () => {
+const pages = [
+   {name: 'Home', path: '/'},
+   {name: 'Catalog', path: '/catalog'},
+   {name: 'Contacts', path: '/contacts'}
+]
+
+type Props = {
+   activePage: string,
+}
+
+const Header: FC<Props> = ({activePage}) => {
    return (
       <header>
          <div className={styles.container}>
@@ -14,15 +24,11 @@ const Header: FC = () => {
                </Link>
                <nav> 
                   <ul className={styles.navbar}>
-                     <li>
-                        <Link to="/">Home</Link>
-                     </li>
-                     <li>
-                        <Link to="/catalog">Art cards</Link>
-                     </li>
-                     <li>
-                        <Link to="/anything">What else?</Link>
-                     </li>
+                     { pages.map((item, index) => (
+                        <li key={index} className={ activePage.toLowerCase() === item.name.toLowerCase() ? `${styles.activePage}` : ''}>
+                           <Link to={item.path}>{item.name}</Link>
+                        </li>
+                     ))}
                   </ul>
                </nav>
             </div>
