@@ -1,0 +1,74 @@
+.card { 
+    position: relative;
+
+    margin: 15px 0 15px 0;
+    padding: 0 0 25px 0;
+
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: space-between;
+    gap: 10px;
+     
+    color: rgb(204, 204, 204); 
+    background-color: rgb(70, 70, 70); 
+    border-radius: 35px; 
+
+    overflow: hidden;
+    border: none;
+    
+    transition: all 0.5s ease-in-out;
+
+    img {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    p {
+        padding: 2% 5% 2% 5%;
+        font-size: 20px;
+    }
+
+    .price {
+        width: 90%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        font-size: 18px;
+
+        a {
+            padding: 0.7em 0.7em;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 10px;
+
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgb(204, 204, 204);
+
+            transition: all 0.2s ease-in-out;
+
+            &:hover {
+                background-color: rgb(204, 204, 204); 
+                color: black;
+                box-shadow: 0px 0px 12px 1px black;
+                transition: all 0.5s ease-in-out;
+            }
+
+            &:focus {
+                outline: 3px solid rgb(108, 95, 255);
+            }
+        }
+    }
+}

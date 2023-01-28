@@ -1,32 +1,36 @@
-import { Dispatch, FC, SetStateAction, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { FC, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import styles from './Home.module.scss'
-import imgMain from './img/card2.png'
+import styles from './Home.module.scss';
+import imgMain from './img/card2.png';
 
-type Props = {
-   setActivePage: Dispatch<SetStateAction<string>>
-}
 
-const Home: FC<Props> = ({setActivePage}) => {
+type props = {
+   setActivePage: (value: React.SetStateAction<string>) => void;
+};
 
-    useEffect(() => {
-        setActivePage('home')
-    }, [])
+const Home: FC<props> = ({ setActivePage }) => {
+   useEffect(() => {
+      setActivePage('home');
+   }, []);
 
-    return (
-        <div className={styles.container}>
-            <img className={styles.image} src={imgMain} alt="Zaambik" />
-            <h2>Let's explore site!</h2>
-            <div className={styles.text}>
-                <p>
-                    Our website is the largest collection of art for connoisseurs of
-                    beauty. <br/>Do you like creativity? Let's go!
-                </p>
-                <Link to='/catalog'>Explore</Link>
-            </div>
-        </div>
-    )
-}
+   return (
+      <div className={styles.container}>
+         <div className={styles.imgWrapper}>
+            <Link to="/catalog">
+               <img className={styles.image} src={imgMain} alt="Zaambik" />
+            </Link>
+         </div>
+         <h2>Let's explore site!</h2>
+         <div className={styles.text}>
+            <p>
+               Our website is the largest collection of art for connoisseurs of beauty. <br />
+               Do you like creativity? Let's go!
+            </p>
+            <Link to="/catalog">Explore</Link>
+         </div>
+      </div>
+   );
+};
 
-export default Home
+export default Home;
