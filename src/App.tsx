@@ -19,19 +19,17 @@ function App() {
 
          <div className="main">
             <Routes>
-               <Route path="/" element={<Home setActivePage={(page) => setActivePage(page)} />} />
                <Route
-                  path="/catalog"
-                  element={<Catalog setActivePage={(page) => setActivePage(page)} />}
+                  path="/"
+                  element={
+                     <div className="home-page">
+                        <Home setActivePage={(page) => setActivePage(page)} />
+                     </div>
+                  }
                />
-               <Route
-                  path="/contacts"
-                  element={<Contacts setActivePage={(page) => setActivePage(page)} />}
-               />
-               <Route
-                  path="/catalog/:id"
-                  element={<ProductPage setActivePage={(page) => setActivePage(page)} />}
-               />
+               <Route path="/catalog" element={<Catalog setActivePage={(page) => setActivePage(page)} />} />
+               <Route path="/contacts" element={<Contacts setActivePage={(page) => setActivePage(page)} />} />
+               <Route path="/catalog/:id" element={<ProductPage setActivePage={(page) => setActivePage(page)} />} />
                <Route path="*" element={<>page not found</>} />
             </Routes>
          </div>

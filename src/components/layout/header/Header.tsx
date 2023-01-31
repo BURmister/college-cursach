@@ -2,12 +2,12 @@ import { FC, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './Header.module.scss';
-import imgLogo from '../../../assets/imgs/logo.png';
+import imgLogo from '../../../assets/imgs/logo.webp';
 
 const pages = [
-   { name: 'Home', path: '/' },
-   { name: 'Catalog', path: '/catalog' },
-   { name: 'Contacts', path: '/contacts' },
+   { name: 'home', value: 'главная', path: '/' },
+   { name: 'catalog', value: 'каталог', path: '/catalog' },
+   { name: 'contacts', value: 'контакты', path: '/contacts' },
 ];
 
 type Props = {
@@ -35,8 +35,8 @@ const Header: FC<Props> = ({ activePage }) => {
       <header>
          <div className={styles.container}>
             <div>
-               <Link className="logo" to="/">
-                  <img src={imgLogo} alt="logo" width="75" />
+               <Link to="/">
+                  <img className={styles.logo} src={imgLogo} alt="logo" width="75" />
                </Link>
                <nav>
                   <ul className={styles.navbar}>
@@ -48,7 +48,7 @@ const Header: FC<Props> = ({ activePage }) => {
                                  ? `${styles.activePage}`
                                  : ''
                            }>
-                           <Link to={item.path}>{item.name}</Link>
+                           <Link to={item.path}>{item.value}</Link>
                         </li>
                      ))}
                   </ul>
@@ -61,14 +61,14 @@ const Header: FC<Props> = ({ activePage }) => {
                <input
                   className={styles.searchInput}
                   type="search"
-                  placeholder="Search"
-                  aria-label="Search"
+                  placeholder="Поиск модели"
+                  aria-label="Поиск модели"
                   onChange={onSearchInput}
                   value={localSearch}
                   ref={searchRef}
                />
                <button className={styles.button} type="button" onClick={clickOnSearch}>
-                  Search
+                  Поиск
                </button>
             </form>
          </div>
