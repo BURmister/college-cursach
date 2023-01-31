@@ -23,7 +23,7 @@ const Home: FC<props> = ({ setActivePage }) => {
             <div className={styles.container}>
                <h2>больше. дальше. быстрее.</h2>
                <p>
-                  посмотрите всю <span>нашу</span> коллекцию винтажных, <span>кросс</span>, спортивных, дорожных и эндуро <span>байков</span>
+                  посмотрите всю <span>нашу</span> коллекцию <span>байков</span>
                </p>
                <Link to="/catalog">подробнее</Link>
             </div>
