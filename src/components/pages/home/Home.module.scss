@@ -6,7 +6,7 @@
 
     .container {
         margin: auto;
-        padding: 7% 0 3% 0;
+        padding: 7% 2% 3% 2%;
 
         max-width: 1200px;
 
@@ -30,6 +30,8 @@
             font-size: 24px;
             text-align: center;
 
+            color: rgb(255, 255, 255);
+
             > span {
                 color: rgb(249, 170, 67);
             }
@@ -45,40 +47,113 @@
             justify-content: center;
             align-items: center;
 
-            border: 3px solid rgb(249, 170, 67);
+            border: 3px solid rgb(255, 145, 0);
             backdrop-filter: blur(10px);
 
-            color: white;
+            color: rgb(255, 255, 255);
 
             font-size: 20px;
             text-decoration: none;
 
             transition: all 0.2s ease-in-out;
         
-            // &:hover {
-            //     border: 3px solid rgb(249, 170, 67);
-            //     background-color: rgb(255, 255, 255);
-            //     color: rgb(249, 170, 67);
-            //     transition: all 0.2s ease-in-out;
-            // }
+            &:hover {
+                border: 3px solid rgb(249, 170, 67);
+                background-color: rgb(249, 170, 67);
+                transition: all 0.2s ease-in-out;
+            }
         }
     }
 }
 
 .cards {
+    // margin: auto;
+    // padding: 5% 0 5% 0;
+
+    // max-width: 1200px;
+
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    // grid-gap: 40px;
+
+    // > a {
+    //     position: relative;
+
+    //     width: 475px;
+    //     height: 300px;
+
+    //     justify-self: center;
+    //     overflow: hidden;
+    //     z-index: 1;
+
+        // > img {
+        //     width: 100%;
+        //     z-index: 0;
+        //     filter: brightness(70%);
+        //     transition: all 0.2s ease-in-out;
+        // }
+
+        // h3 {
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     width: 100%;
+        //     height: 100%;
+
+        //     display: flex;
+        //     justify-content: center;
+        //     align-items: center;
+
+        //     font-size: 44px;
+        //     text-decoration: none;
+        //     color: white;
+
+        //     transition: all 0.2s ease-in-out;
+        //     z-index: 2;
+        // }
+
+        // &:hover {
+        //     h3 {
+        //         color:rgba(255, 255, 255, 0.1);
+        //         transform: scale(0.9);
+        //         visibility: hidden;
+        //         transition: all 0.2s ease-in-out;
+        //     }
+
+        //     img {
+        //         filter: brightness(100%);
+        //         transition: all 0.2s ease-in-out;
+        //     }
+        // }
+
+    //     @media screen and (max-width: 1100px) {
+    //         width: 400px;
+    //         height: 250px;
+    //     }   
+
+    //     @media screen and (max-width: 900px) {
+    //         width: 95%;
+    //         height: 400px;
+    //     }   
+    // }
+
+    // @media screen and (max-width: 900px) {
+    //     grid-template-columns: 1fr;
+    // }   
+
     margin: auto;
-    padding: 5% 0 5% 0;
+    padding: 5% 2% 5% 2%;
 
     max-width: 1200px;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 40px;
+    grid-template-columns: 1fr  1fr;
+    grid-gap: 15px;
 
     > a {
         position: relative;
 
-        width: 475px;
+        width: 100%;
         height: 300px;
 
         justify-self: center;
@@ -88,6 +163,8 @@
         > img {
             width: 100%;
             z-index: 0;
+            filter: brightness(50%);
+            transition: all 0.2s ease-in-out;
         }
 
         h3 {
@@ -107,29 +184,37 @@
 
             transition: all 0.2s ease-in-out;
             z-index: 2;
+
+            > img {
+                transition: all 0.2s ease-in-out;
+            }
         }
 
         &:hover {
             h3 {
-                color:rgba(255, 255, 255, 0.1);
-                transform: scale(0.9);
-                visibility: hidden;
+                color:rgba(255, 255, 255, 0.8);
+                transition: all 0.2s ease-in-out;
+
+                > img {
+                    opacity: 0.8;
+                    transform: translateX(35%);
+                    transition: all 0.2s ease-in-out;
+                }
+            }
+
+            > img {
+                filter: brightness(80%);
                 transition: all 0.2s ease-in-out;
             }
         }
 
         @media screen and (max-width: 1100px) {
-            width: 400px;
             height: 250px;
         }   
 
         @media screen and (max-width: 900px) {
             width: 95%;
-            height: 400px;
+            height: 200px;
         }   
     }
-
-    @media screen and (max-width: 900px) {
-        grid-template-columns: 1fr;
-    }   
 }

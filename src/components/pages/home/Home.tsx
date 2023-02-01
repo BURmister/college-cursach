@@ -2,11 +2,13 @@ import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './Home.module.scss';
-import imgCard1 from './img/brat.jpeg';
-import imgCard2 from './img/cross.jpeg';
-import imgCard3 from './img/sport.jpeg';
-import imgCard4 from './img/road.jpg';
-import imgCard5 from './img/adventure.jpeg';
+import imgCard1 from '../../../assets/imgs/brat.jpeg';
+import imgCard2 from '../../../assets/imgs/cross.jpeg';
+import imgCard3 from '../../../assets/imgs/sport.jpeg';
+import imgCard4 from '../../../assets/imgs/road.jpg';
+import imgCard5 from '../../../assets/imgs/adventure.jpeg';
+import imgCard6 from '../../../assets/imgs/layout2.jpg';
+import imgArrow from './img/arrow-right.svg';
 
 type props = {
    setActivePage: (value: React.SetStateAction<string>) => void;
@@ -15,6 +17,7 @@ type props = {
 const Home: FC<props> = ({ setActivePage }) => {
    useEffect(() => {
       setActivePage('home');
+      window.scrollTo(0, 0);
    }, []);
 
    return (
@@ -29,25 +32,47 @@ const Home: FC<props> = ({ setActivePage }) => {
             </div>
          </section>
          <section className={styles.cards}>
-            <Link to="/catalog">
+            <Link to="/catalog" title="все">
+               <img src={imgCard6} />
+               <h3>
+                  все
+                  <img src={imgArrow} />
+               </h3>
+            </Link>
+            <Link to="/catalog?type=vintage" title="винтаж">
                <img src={imgCard1} />
-               <h3>Винтаж</h3>
+               <h3>
+                  Винтаж
+                  <img src={imgArrow} />
+               </h3>
             </Link>
-            <Link to="/catalog">
+            <Link to="/catalog?type=cross" title="кросс">
                <img src={imgCard2} />
-               <h3>кросс</h3>
+               <h3>
+                  кросс
+                  <img src={imgArrow} />
+               </h3>
             </Link>
-            <Link to="/catalog">
+            <Link to="/catalog?type=sport" title="спорт">
                <img src={imgCard3} />
-               <h3>спорт</h3>
+               <h3>
+                  спорт
+                  <img src={imgArrow} />
+               </h3>
             </Link>
-            <Link to="/catalog">
+            <Link to="/catalog?type=road" title="дорожные">
                <img src={imgCard4} />
-               <h3>дорожные</h3>
+               <h3>
+                  дорожные
+                  <img src={imgArrow} />
+               </h3>
             </Link>
-            <Link to="/catalog">
-               <img src={imgCard5}/>
-               <h3>эндуро</h3>
+            <Link to="/catalog?type=tur" title="эндуро">
+               <img src={imgCard5} />
+               <h3>
+                  эндуро
+                  <img src={imgArrow} />
+               </h3>
             </Link>
          </section>
       </>

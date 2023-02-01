@@ -13,7 +13,7 @@ const Contacts: FC<props> = ({ setActivePage }) => {
 
    return (
       <>
-         <h2>Contacts</h2>
+         <h2>контакты</h2>
          <div className={styles.container}>
             <iframe
                className={styles.map}

@@ -1,9 +1,4 @@
 .card { 
-    position: relative;
-
-    margin: 15px 0 15px 0;
-    padding: 0 0 25px 0;
-
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -12,30 +7,36 @@
      
     color: rgb(204, 204, 204); 
     background-color: rgb(70, 70, 70); 
-    border-radius: 35px; 
-
-    overflow: hidden;
     border: none;
     
+    overflow: hidden;
     transition: all 0.5s ease-in-out;
 
-    img {
-        height: 300px;
-        width: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
+    .cardUp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-    h3 {
-        font-size: 24px;
+        img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
     }
 
     p {
         padding: 2% 5% 2% 5%;
         font-size: 20px;
+        text-align: center;
     }
 
-    .price {
+    .price { 
+        padding-bottom: 3%;
         width: 90%;
 
         display: flex;
@@ -50,8 +51,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
-            border-radius: 10px;
 
             color: white;
             text-decoration: none;
@@ -69,6 +68,32 @@
             &:focus {
                 outline: 3px solid rgb(108, 95, 255);
             }
+        }
+    }
+
+    @media screen and (max-width: 1100px) {
+        img {
+            height: 200px;
+        }
+
+        h3 {
+            font-size: 20px;
+        }
+
+        p {
+            padding: 2% 5% 2% 5%;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 16px;
+        }
+    }
+
+    @media screen and (max-width: 950px) {
+        img {
+            height: 180px;
         }
     }
 }
