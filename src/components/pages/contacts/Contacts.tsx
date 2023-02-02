@@ -22,23 +22,23 @@ const Contacts: FC<props> = ({ setActivePage }) => {
                referrerPolicy="no-referrer-when-downgrade"></iframe>
             <div className={styles.contacts}>
                <div className={styles.list}>
-                  <h3>Telephones</h3>
+                  <h3>Телефоны</h3>
                   <ul>
                      <li>890345678</li>
                      <li>890345678</li>
                   </ul>
-                  <h3>Emails</h3>
+                  <h3>Почта</h3>
                   <ul>
                      <li>qwerty@gmail.com</li>
                      <li>qwerty1@gmail.com</li>
                   </ul>
                </div>
                <div className={styles.about}>
-                  <h3>About</h3>
+                  <h3>О нас</h3>
                   <p>
-                     We are a budding development team. We are engaged in self-development in the
-                     field of web technologies. We study modern advanced software and new solutions
-                     for future projects!
+                     Наша команда занимается коллекционированием и кастомизацией любой мототехники.
+                     Мы можем договориться о ремонте, модернизации или кастомизации вашей техники в очном формате.
+                     Вы можете посмотреть наши работы в каталоге, и до встречи в нашем гараже!
                   </p>
                </div>
             </div>

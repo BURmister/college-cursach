@@ -1,0 +1,43 @@
+.container {
+    height: 300px;
+    max-width: 1000px;
+    
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 80%;
+        right: 39%;
+        background-image: url('../imgs/mini-logo.svg');
+        background-repeat: no-repeat;
+        width: 111px;
+        height: 40px;
+        z-index: 100;
+    }
+
+    .page {
+        min-width: 1000px;
+        max-width: 1000px;
+    }
+
+    .window {
+        height: 95%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #2b2b2b;
+        margin-bottom: 10px;
+
+        .allPagesContainer {
+            height: 100%;
+            display: flex;
+
+            transition: translate;
+            transition-property: transform;
+            transition-duration: 300ms;
+            transition-timing-function: ease-in-out;
+        }
+    }
+}
+
+
