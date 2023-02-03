@@ -6,9 +6,10 @@ import Header from './components/layout/header/Header';
 import Home from './components/pages/home/Home';
 import Catalog from './components/pages/catalog/Catalog';
 import Contacts from './components/pages/contacts/Contacts';
+import ProductPage from './components/pages/product-page/ProductPage';
+import SearchResult from './components/pages/search-result/SearchResult';
 
 import './App.css';
-import ProductPage from './components/pages/product-page/ProductPage';
 
 function App() {
    const [activePage, setActivePage] = useState<string>('home');
@@ -30,6 +31,7 @@ function App() {
                <Route path="/catalog" element={<Catalog setActivePage={(page) => setActivePage(page)} />} />
                <Route path="/contacts" element={<Contacts setActivePage={(page) => setActivePage(page)} />} />
                <Route path="/catalog/:id" element={<ProductPage setActivePage={(page) => setActivePage(page)} />} />
+               <Route path="/search-result" element={<SearchResult setActivePage={(page) => setActivePage(page)} />} />
                <Route path="*" element={<>page not found</>} />
             </Routes>
          </div>

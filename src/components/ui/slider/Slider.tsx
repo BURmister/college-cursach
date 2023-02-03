@@ -1,68 +1,40 @@
-import { FC, useState, useEffect } from 'react'
+import { FC } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation,Autoplay } from 'swiper'
+import { Navigation, Autoplay, Pagination } from 'swiper'
 
+import './Slider.scss'
 import 'swiper/css'
-import 'swiper/css/navigation'
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import styles from './Slider.module.scss'
+import card2 from './card2.png'
 
 const Slider: FC = () => {
    return (
       <Swiper
-         modules={[Navigation, Autoplay]}
-         spaceBetween={5}
-         slidesPerView={2}
+         modules={[Navigation, Autoplay, Pagination]}
+         spaceBetween={0}
+         slidesPerView={1}
          onSlideChange={() => console.log('slide change')}
          onSwiper={(swiper) => console.log(swiper)}
-         className="slider_wf"
+         className={styles.wrapper}
          autoplay={{
             delay: 10000,
-            pauseOnMouseEnter: true
+            pauseOnMouseEnter: true,
          }}
-         // navigation={{
-         //    nextEl: '.swiper-button-next',
-         //    prevEl: '.swiper-button-prev'
-         // }}
-      >
-         <SwiperSlide className="video_item">
-            <div className="thumbnail">
-               <img src="img/main/1.jpg" alt=""/>
-               <time>16:55</time>
-            </div>
-            <div className="author">Micheal Adams</div>
-            <div className="name">Day in my life: Summer ...</div>
-            <div className="number_info">
-               <div className="views">VIEWS 28.6K</div>
-               <div className="date">6DS AGO</div>
-            </div>
+         pagination={{ clickable: true }}
+         navigation>
+         <SwiperSlide className={styles.slide}>
+            <img src={card2} />
          </SwiperSlide>
-         
-         <SwiperSlide className="video_item">
-            <div className="thumbnail">
-               <img src="img/main/2.jpg" alt=""/>
-               <time>07:23</time>
-            </div>
-            <div className="author">Dollie Cross</div>
-            <div className="name">Day in my life: Summer ...</div>
-            <div className="number_info">
-               <div className="views">VIEWS 26.7K</div>
-               <div className="date">10DS AGO</div>
-            </div>
+         <SwiperSlide className={styles.slide}>
+            <img src={card2} />
          </SwiperSlide>
-
-         <SwiperSlide className="video_item">
-            <div className="thumbnail">
-               <img src="img/main/3.jpg" alt=""/>
-               <time>16:55</time>
-            </div>
-            <div className="author">Micheal Adams</div>
-            <div className="name">Day in my life: Summer ...</div>
-            <div className="number_info">
-               <div className="views">VIEWS 28.6K</div>
-               <div className="date">6DS AGO</div>
-            </div>
+         <SwiperSlide className={styles.slide}>
+            <img src={card2} />
          </SwiperSlide>
       </Swiper>
-   )
+   );
 }
 
 export default Slider

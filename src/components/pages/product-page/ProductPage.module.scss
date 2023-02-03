@@ -1,3 +1,70 @@
 .container {
+   margin: auto;
+   padding: 5% 2% 5% 2%;
+
    max-width: 1200px;
+
+   .text {
+      padding-top: 5%;
+      color: white;
+
+      display: grid;
+      grid-template-areas: 
+      "A B"
+      "C B";
+
+      h3 {
+         font-size: 28px;
+      }
+
+      .information {
+         grid-area: A;
+
+         p {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.6);
+         }
+      }
+
+      .feature {
+         grid-area: B;
+
+         display: grid;
+         grid-template-columns: 1fr;
+         grid-gap: 10px;
+
+         span {
+            padding: 3% 0 3% 0;
+            
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+
+            &:last-child {
+               border: none;
+            }
+            
+            h4 {
+               font-size: 20px;
+            }
+
+            p {
+               font-size: 20px;
+               color: rgba(255, 255, 255, 0.6);
+            }
+         }
+      }
+
+      .price {
+         grid-area: C;
+
+         p {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.6);
+         }
+      }
+   }
 }

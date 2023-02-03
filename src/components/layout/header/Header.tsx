@@ -27,8 +27,22 @@ const Header: FC<Props> = ({ activePage }) => {
 
    const clickOnSearch = () => {
       //fetch => ----------------------- -- --  -- -- -- - - - - --- - -- - --------------------
+      // console.log(searchRef?.current?.value);
+      navigate(searchRef?.current?.value === '' ? '/catalog' : `/search-result?search=${searchRef?.current?.value}`)
+   }
+
+   const enterClick = (event: any) => {
+      if (event.key === 'Enter') {
+         event.preventDefault();
+         navigate(searchRef?.current?.value === '' ? '/catalog' : `/search-result?search=${searchRef?.current?.value}`);
+      }
+      //fetch => ----------------------- -- --  -- -- -- - - - - --- - -- - --------------------
+      // console.log(searchRef?.current?.value);
+   };
+
+   const submitForm = (event: any) => {
       console.log(searchRef?.current?.value);
-      navigate("fetchResponse")
+      event.preventDefault();
    }
 
    return (
@@ -41,31 +55,26 @@ const Header: FC<Props> = ({ activePage }) => {
                <nav>
                   <ul className={styles.navbar}>
                      {pages.map((item, index) => (
-                        <li
-                           key={index}
-                           className={
-                              activePage.toLowerCase() === item.name.toLowerCase()
-                                 ? `${styles.activePage}`
-                                 : ''
-                           }>
+                        <li key={index} className={activePage.toLowerCase() === item.name.toLowerCase() ? `${styles.activePage}` : ''}>
                            <Link to={item.path}>{item.value}</Link>
                         </li>
                      ))}
                   </ul>
                </nav>
             </div>
-            <form className={styles.searchContainer} role="search">
+            <form className={styles.searchContainer} role="search" >
                {/* {localSearch && (
                   <img className="clear" src={iconClear} onClick={() => onSearchClear()} alt="X" />
                )} */}
                <input
                   className={styles.searchInput}
-                  type="search"
                   placeholder="Поиск модели"
+                  type="search"
                   aria-label="Поиск модели"
                   onChange={onSearchInput}
                   value={localSearch}
                   ref={searchRef}
+                  onKeyDown={enterClick}
                />
                <button className={styles.button} type="button" onClick={clickOnSearch}>
                   Поиск

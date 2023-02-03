@@ -23,50 +23,37 @@ const ProductPage: FC<props> = ({ setActivePage }) => {
       <>
          <h2>{id} Product page</h2>
          <div className={styles.container}>
-            {/* <Carousel>
-               <div>
-                  <img src={img} alt="" />
-               </div>
-               
-               <div>
-                  <img src={img} alt="" />
-               </div>
-               
-               <div>
-                  <img src={img} alt="" />
-               </div>
-            </Carousel> */}
-            <Slider/>
-            <div>
-               <div>
+            <Slider />
+            <div className={styles.text}>
+               <div className={styles.information}>
                   <h3>основная информация</h3>
                   <p>{'какая-то информация'}</p>
                </div>
-               <div>
-                  <h3>наша цена такого чуда</h3>
+               <div className={styles.price}>
+                  <h3>цена такого чуда</h3>
                   <p>{'цена'}</p>
                </div>
-               <div>
+               <div className={styles.feature}>
                   <h3>характеристики</h3>
                   <span>
                      <h4>модель</h4>
-                     модель
+                     <p>{'модель'}</p>
                   </span>
                   <span>
                      <h4>мощность</h4>
-                     мощность
+                     <p>{'мощность'}</p>
                   </span>
                   <span>
                      <h4>кубатура</h4>
-                     кубатура
+                     <p>{'кубатура'}</p>
                   </span>
                   <span>
                      <h4>цвет</h4>
-                     цвет
+                     <p>{'цвет'}</p>
                   </span>
                   <span>
                      <h4>год</h4>
-                     год
+                     <p>{"год"}</p>
                   </span>
                </div>
             </div>
