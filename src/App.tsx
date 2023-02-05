@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import AppContext from './hooks/Context';
 
 import Footer from './components/layout/footer/Footer';
 import Header from './components/layout/header/Header';
@@ -15,29 +16,31 @@ function App() {
    const [activePage, setActivePage] = useState<string>('home');
 
    return (
-      <div className="App">
-         <Header activePage={activePage} />
+      <AppContext.Provider value>
+         <div className="App">
+            <Header activePage={activePage} />
 
-         <div className="main">
-            <Routes>
-               <Route
-                  path="/"
-                  element={
-                     <div className="home-page">
-                        <Home setActivePage={(page) => setActivePage(page)} />
-                     </div>
-                  }
-               />
-               <Route path="/catalog" element={<Catalog setActivePage={(page) => setActivePage(page)} />} />
-               <Route path="/contacts" element={<Contacts setActivePage={(page) => setActivePage(page)} />} />
-               <Route path="/catalog/:id" element={<ProductPage setActivePage={(page) => setActivePage(page)} />} />
-               <Route path="/search-result" element={<SearchResult setActivePage={(page) => setActivePage(page)} />} />
-               <Route path="*" element={<>page not found</>} />
-            </Routes>
+            <div className="main">
+               <Routes>
+                  <Route
+                     path="/"
+                     element={
+                        <div className="home-page">
+                           <Home setActivePage={(page) => setActivePage(page)} />
+                        </div>
+                     }
+                  />
+                  <Route path="/catalog" element={<Catalog setActivePage={(page) => setActivePage(page)} />} />
+                  <Route path="/contacts" element={<Contacts setActivePage={(page) => setActivePage(page)} />} />
+                  <Route path="/catalog/:id" element={<ProductPage setActivePage={(page) => setActivePage(page)} />} />
+                  <Route path="/search-result" element={<SearchResult setActivePage={(page) => setActivePage(page)} />} />
+                  <Route path="*" element={<>page not found</>} />
+               </Routes>
+            </div>
+
+            <Footer />
          </div>
-
-         <Footer />
-      </div>
+      </AppContext.Provider>
    );
 }
 

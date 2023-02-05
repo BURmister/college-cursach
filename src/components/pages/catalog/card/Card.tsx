@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './Card.module.scss';
@@ -16,7 +16,7 @@ const Card: FC<props> = ({ id, img, h, text, price }) => {
       <div className={styles.card}>
          <div className={styles.cardUp}>
             <Link to={`/catalog/${id}`}>
-               <img src={img} alt={`фото модели мотоцикла ${h}`}/>
+               <img src={img} alt={`фото модели мотоцикла ${h}`} />
             </Link>
             <h3>{h}</h3>
          </div>

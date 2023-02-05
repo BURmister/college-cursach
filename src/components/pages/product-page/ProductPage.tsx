@@ -1,9 +1,10 @@
 import { FC, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Carousel from '../../ui/carousel/Carousel'
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
+import { fetchOneProduct, getOneProduct, productStatus, updateStatus } from '../../../redux/slice/oneProductSlice';
 
 import styles from './ProductPage.module.scss';
-import img from './card2.png'
+// import img from './card2.png'
 import Slider from '../../ui/slider/Slider';
 
 type props = {
@@ -11,17 +12,37 @@ type props = {
 };
 
 const ProductPage: FC<props> = ({ setActivePage }) => {
+   const product = useAppSelector(getOneProduct);
+   const status = useAppSelector(productStatus);
+   const dispatch = useAppDispatch();
+
    const [id, setId] = useState<string>();
+
    const params = useParams();
+   const navigate = useNavigate();
 
    useEffect(() => {
       setId(params.id);
       setActivePage('catalog/card');
-   }, []);
+      const fetchData = async () => {
+         id && dispatch(fetchOneProduct(id));
+      };
+      fetchData();
+   }, [id]);
+
+   if (product === null && status === 'error') {
+      alert('something went wrong, please try again later');
+      navigate('/catalog');
+      dispatch(updateStatus('loading'))
+   }
+
+   if (product === null) {
+      return <h2>...loading</h2>;
+   }
 
    return (
       <>
-         <h2>{id} Product page</h2>
+         <h2>{product.title}</h2>
          <div className={styles.container}>
             <Slider />
             <div className={styles.text}>
@@ -53,7 +74,7 @@ const ProductPage: FC<props> = ({ setActivePage }) => {
                   </span>
                   <span>
                      <h4>год</h4>
-                     <p>{"год"}</p>
+                     <p>{'год'}</p>
                   </span>
                </div>
             </div>

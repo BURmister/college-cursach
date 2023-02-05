@@ -1,25 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux';
 
-import activePageReducer from './slice/activePageSlice'
-import shopCardsReducer from './slice/shopCardsSlice'
-import sortSliceReducer from './slice/sortSlice'
-import filterSliceReducer from './slice/filterSlice'
-import cartSliceReducer from './slice/cartSlice'
+import productsReducer from './slice/productsSlice'
+import filtersSliceReducer from './slice/filtersSlice'
+import oneProductReducer from './slice/oneProductSlice'
 
 export const store = configureStore({
   reducer: {
-    activePage: activePageReducer,
-    shopCards: shopCardsReducer,
-    sort: sortSliceReducer,
-    filter: filterSliceReducer,
-    cart: cartSliceReducer,
+    products: productsReducer,
+    filters: filtersSliceReducer,
+    oneProduct: oneProductReducer
   },
 })
 
 export type RootState = ReturnType<typeof store.getState>;
-
-type AppDispatch = typeof store.dispatch;
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export type AppDispatch = typeof store.dispatch;
 
 

@@ -4,6 +4,10 @@ import qs from 'qs';
 
 import Card from './card/Card';
 
+import { fetchProducts, getProducts, productsStatus, updateStatus } from '../../../redux/slice/productsSlice';
+import { fetchFilters, filtersStatus, getFilters, updateFiltersStatus } from '../../../redux/slice/filtersSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
+
 import imgCard1 from './img/card1.jpg';
 import imgCard2 from './img/card2.png';
 import imgCard3 from './img/card3.webp';
@@ -14,46 +18,107 @@ type props = {
 };
 
 const Catalog: FC<props> = ({ setActivePage }) => {
+   const products = useAppSelector(getProducts);
+   const statusProducts = useAppSelector(productsStatus);
+   const statusFilters = useAppSelector(filtersStatus);
+   const filters = useAppSelector(getFilters);
+   const dispatch = useAppDispatch();
+
+   const [typeFilter, setTypeFilter] = useState<string[]>([]);
+   const [producerFilter, setProducerFilter] = useState<string[]>([]);
+   const [colorFilter, setColorFilter] = useState<string[]>([]);
+
+   const isMounted = useRef(false)
+
+   const navigate = useNavigate();
+
+   useEffect(() => {
+      if (isMounted.current) {
+         const queryString = qs.stringify({
+            typeFilter,
+            modelFilter: producerFilter,
+            colorsFilter: colorFilter
+         });
+         navigate(`?${queryString}`);
+      }
+      isMounted.current = true;
+   }, [typeFilter, producerFilter, colorFilter]);
+
    useEffect(() => {
       setActivePage('catalog');
       window.scrollTo(0, 0);
+      const fetchData = () => {
+         dispatch(fetchFilters());
+      };
+      fetchData();
    }, []);
 
-   //UseEffect
-   //если параметры еще не менялись, то не вшивать параметры в URL-строку
-   // useEffect(() => {
-   //    if (isMounted.current) {
-   //       const queryString = qs.stringify({
-   //          searchValue,
-   //          type,
-   //          producer,
-   //          model,
-   //          color,
-   //          currentPage,
-   //       });
-   //       navigate(`?${queryString}`);
-   //    }
-   //    isMounted.current = true;
-   // }, [searchValue, type, producer, model, color, currentPage, currentPage]);
-
    //если был первый рендер, то проверяем URL-параметры и сохраняем в редуксе
-   // useEffect(() => {
-   //    if (window.location.search) {
-   //       const params = qs.parse(window.location.search.substring(1));
-   //       const sort = sortList.find((obj: { property: string; type: string }) => obj.property === params.sortBy && obj.type === params.order);
-   //       const brand = receivedBrands.find((obj) => obj.data === params.filterBrand);
+   useEffect(() => {
+      if (window.location.search) {
+         const params = qs.parse(window.location.search.substring(1));
+         setTypeFilter(params.typeFilter !== undefined ? String(params?.typeFilter).split(',') : []);
+         // console.log(String(params?.typeFilter).split(','));
+         setProducerFilter(params.modelFilter !== undefined ? String(params?.modelFilter).split(',') : []);
+         // console.log(String(params?.producerFilter).split(','));
+         setColorFilter(params.colorsFilter !== undefined ? String(params?.colorsFilter).split(',') : []);
+         // console.log(String(params?.colorsFilter).split(','));
+      }
+   }, []);
 
-   //       const search = searchParams.get('searchValue');
+   useEffect(() => {
+      const fetchData = () => {
+         dispatch(fetchProducts({ typeFilter, producerFilter, colorFilter }));
+      };
+      fetchData();
+   }, [typeFilter, producerFilter, colorFilter]);
 
-   //       dispatch(changeSelectedSort(sort));
-   //       brand && setFilterBrand(brand);
-   //       search && setSearchValue(search);
-   //       search && setLocalSearch(search);
-   //       setCurrentPage(Number(params.currentPage));
+   const addFilter = (
+      type: string,
+      el: {
+         name: string;
+         value: string;
+      },
+   ) => {
+      if (type === 'тип') {
+         if (typeFilter.includes(el.value)) {
+            setTypeFilter([...typeFilter].filter((item) => item !== el.value));
+            console.log(typeFilter);
+         } else {
+            setTypeFilter([...typeFilter, el.value]);
+            console.log(typeFilter);
+         }
+      }
+      if (type === 'производитель') {
+         if (producerFilter.includes(el.value)) {
+            setProducerFilter([...producerFilter].filter((item) => item !== el.value));
+            console.log(producerFilter);
+         } else {
+            setProducerFilter([...producerFilter, el.value]);
+            console.log(producerFilter);
+         }
+      }
+      if (type === 'цвет') {
+         if (colorFilter.includes(el.value)) {
+            setColorFilter([...colorFilter].filter((item) => item !== el.value));
+            console.log(colorFilter);
+         } else {
+            setColorFilter([...colorFilter, el.value]);
+            console.log(colorFilter);
+         }
+      }
+   };
 
-   //       isSearch.current = true;
-   //    }
-   // }, []);
+   if (statusProducts === 'error' || statusFilters === 'error') {
+      alert('something went wrong, please try again later');
+      navigate('/');
+      dispatch(updateStatus('loading'));
+      dispatch(updateFiltersStatus('loading'));
+   }
+
+   if (statusProducts === 'loading' || statusFilters === 'loading') {
+      return <h2>...loading</h2>;
+   }
 
    return (
       <>
@@ -62,42 +127,40 @@ const Catalog: FC<props> = ({ setActivePage }) => {
             <section className={styles.filters}>
                <h3>фильтры</h3>
                <form>
-                  <div>
-                     <legend>тип</legend>
-                     <label>
-                        <input type="checkbox" id="typeOfModel" name="typeOfModel" value="motoModel" />
-                        <span></span>
-                        кросс
-                     </label>
-                  </div>
-                  <div>
-                     <legend>производитель</legend>
-                     <label>
-                        <input type="checkbox" id="producerOfModel" name="producerOfModel" value="motoModel" />
-                        <span></span>
-                        ktm
-                     </label>
-                  </div>
-                  <div>
-                     <legend>цвет</legend>
-                     <label>
-                        <input type="checkbox" id="colorOfModel" name="typeOfModel" value="motoModel" />
-                        <span></span>
-                        white
-                     </label>
-                  </div>
+                  {filters.map((item, index) => (
+                     <div key={index}>
+                        <legend>{item.type}</legend>
+                        {item?.filters.map((el, index) => (
+                           <label key={index}>
+                              <input
+                                 checked={
+                                    typeFilter.includes(el.value)
+                                       ? true
+                                       : false || producerFilter.includes(el.value)
+                                       ? true
+                                       : false || colorFilter.includes(el.value)
+                                       ? true
+                                       : false
+                                 }
+                                 onClick={() => addFilter(item.type, el)}
+                                 type="checkbox"
+                                 id={el.name}
+                                 name={el.name}
+                                 value={el.value}
+                                 onChange={(e) => {}}
+                              />
+                              <span></span>
+                              {el.name}
+                           </label>
+                        ))}
+                     </div>
+                  ))}
                </form>
             </section>
             <section className={styles.cards}>
-               <Card id={'1'} img={imgCard1} h={'KTM Duke'} text={'резвее, чем кажется'} price={'+100500'} />
-               <Card id={'1'} img={imgCard2} h={'Husqvarna fe 450'} text={'делает врум-врум'} price={'+100500'} />
-               <Card id={'1'} img={imgCard3} h={'APRILIA RS660'} text={'такой можно на полку ставить '} price={'+100500'} />
-               <Card id={'1'} img={imgCard1} h={'KTM Duke'} text={'резвее, чем кажется'} price={'+100500'} />
-               <Card id={'1'} img={imgCard2} h={'Husqvarna fe 450'} text={'делает врум-врум'} price={'+100500'} />
-               <Card id={'1'} img={imgCard3} h={'APRILIA RS660'} text={'такой можно на полку ставить '} price={'+100500'} />
-               <Card id={'1'} img={imgCard1} h={'KTM Duke'} text={'резвее, чем кажется'} price={'+100500'} />
-               <Card id={'1'} img={imgCard2} h={'Husqvarna fe 450'} text={'делает врум-врум'} price={'+100500'} />
-               <Card id={'1'} img={imgCard3} h={'APRILIA RS660'} text={'такой можно на полку ставить '} price={'+100500'} />
+               {products.map((item, index) => (
+                  <Card key={index} id={item._id} img={imgCard1} h={item.title} text={item.info} price={String(item.price)} />
+               ))}
             </section>
          </div>
       </>
@@ -105,86 +168,3 @@ const Catalog: FC<props> = ({ setActivePage }) => {
 };
 
 export default Catalog;
-
-//  //UseDispatch/Navigate
-//  const dispatch = useAppDispatch()
-//  const navigate = useNavigate()
-//  const [searchParams, setSearchParams] = useSearchParams()
-
-//  //UseSelector
-//  const sortList = useSelector((state: any) => state.sort.sortList)
-//  const selectedSort = useSelector((state: any) => state.sort.selectedSort)
-//  const cardStatus = useSelector((state: any) => state.shopCards.status)
-//  //Alternative useSelector
-//  const shopCards = useSelector(getShopCards)
-
-//  //UseRef
-//  const isSearch = React.useRef(false)
-//  const isMounted = React.useRef(false)
-//  const searchRef = React.useRef<HTMLInputElement>(null)
-
-//  //cуть этого массива в том, чтобы
-//  //иметь cписок всех возможных брендов
-//  //рендерить названия этих брендов
-//  //в сайдбаре динамично, при получении
-//  //данных с бэкенда для того, чтобы
-//  //не было необходимости изменять jsx
-//  //при добавлении или удалении брендов
-//  //то же самое с категориями
-//  const [receivedBrands, setReceivedBrands] = React.useState([
-//      {index: 1, title: 'all', data: ''},
-//      {index: 2, title: 'baxter of california', data: 'baxter of california'},
-//      {index: 3, title: 'mr natty', data: 'mr natty'},
-//      {index: 4, title: 'suavecito', data: 'suavecito'},
-//      {index: 5, title: 'malin+goetz', data: 'malin'},
-//      {index: 6, title: "murray's", data: "murray's"},
-//      {index: 7, title: "american crew", data: "american crew"},
-//  ])
-
-//  //UseContext
-//  // const {  } = React.useContext(AppContext)
-
-//  // ReactStates
-//  const [searchValue, setSearchValue] = React.useState('')
-//  const [localSearch, setLocalSearch] = React.useState('')
-//  const [filterBrand, setFilterBrand] = React.useState<{index: number, title: string, data: string}>({index: 1, title: 'all', data: ''})
-//  const [currentPage, setCurrentPage] = React.useState(1)
-//  const [itemsPerPage] = React.useState(9)
-
-//  //AnotherArrowFunction
-//  const getGoods = () => {
-//      dispatch(changeActivePage(3))
-//      isHeader();
-//      async function fetchData() {
-//          dispatch(fetchShopCards({
-//              currentPage,
-//              filterBrand,
-//              selectedSort,
-//              searchValue
-//          }))
-//          dispatch(fetchCart())
-//      }
-//      fetchData()
-//  }
-
-//  //получить товары с бэка, но подождав пока isSearch провериться
-//  useEffect(() => {
-//      if (!isSearch.current) {
-//          getGoods()
-//      }
-
-//      isSearch.current = false
-
-//      window.scrollTo(0, 0)
-//  }, [filterBrand, searchValue, currentPage, selectedSort])
-
-//  // Constants
-//  const loadingCards = [{}, {}, {}, {}, {}, {}, {}, {}, {}]
-//  const lastItemIndex = currentPage * itemsPerPage
-//  const firstItemIndex = lastItemIndex - itemsPerPage
-//  const pageCount = [1, 2, 3, 4, 5]
-
-//  //ArrowFunctions
-//  const paginate = (pageNumber: number) => {
-//      setCurrentPage(pageNumber)
-//  }

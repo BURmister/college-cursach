@@ -1,5 +1,7 @@
 import { FC, useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
+import { fetchProducts, getProducts, productsStatus, updateStatus } from '../../../redux/slice/productsSlice';
 
 import Card from './card/Card';
 
@@ -14,32 +16,45 @@ type props = {
 
 const SearchResult: FC<props> = ({ setActivePage }) => {
    const [search, setSearch] = useState<string>();
-   const [searchParams, setSearchParams] = useSearchParams()
-   const navigate = useNavigate()
+   const [searchParams, setSearchParams] = useSearchParams();
+   const navigate = useNavigate();
+
+   const products = useAppSelector(getProducts);
+   const status = useAppSelector(productsStatus);
+   const dispatch = useAppDispatch();
 
    useEffect(() => {
       setActivePage('search-result');
       window.scrollTo(0, 0);
-
       if (window.location.search) {
          const search = searchParams.get('search');
          search && setSearch(search);
+         const fetchData = () => {
+            search && dispatch(fetchProducts({ searchValue: search }));
+         };
+         fetchData();
       }
    }, [searchParams]);
 
+   if (status === 'error') {
+      alert('something went wrong, please try again later');
+      navigate('/');
+      dispatch(updateStatus('loading'));
+   }
+
+   if (status === 'loading') {
+      return <h2>...loading</h2>;
+   }
+
    return (
       <>
-         <h2>результат по запросу {"<"} {search} {"/>"}</h2>
+         <h2>
+            результат по запросу {'<'} {search} {'/>'}
+         </h2>
          <div className={styles.container}>
-            <Card id={'1'} img={imgCard1} h={'KTM Duke'} text={'резвее, чем кажется'} price={'+100500'} />
-            <Card id={'1'} img={imgCard2} h={'Husqvarna fe 450'} text={'делает врум-врум'} price={'+100500'} />
-            <Card id={'1'} img={imgCard3} h={'APRILIA RS660'} text={'такой можно на полку ставить '} price={'+100500'} />
-            <Card id={'1'} img={imgCard1} h={'KTM Duke'} text={'резвее, чем кажется'} price={'+100500'} />
-            <Card id={'1'} img={imgCard2} h={'Husqvarna fe 450'} text={'делает врум-врум'} price={'+100500'} />
-            <Card id={'1'} img={imgCard3} h={'APRILIA RS660'} text={'такой можно на полку ставить '} price={'+100500'} />
-            <Card id={'1'} img={imgCard1} h={'KTM Duke'} text={'резвее, чем кажется'} price={'+100500'} />
-            <Card id={'1'} img={imgCard2} h={'Husqvarna fe 450'} text={'делает врум-врум'} price={'+100500'} />
-            <Card id={'1'} img={imgCard3} h={'APRILIA RS660'} text={'такой можно на полку ставить '} price={'+100500'} />
+            {products.map((item, index) => (
+               <Card key={index} id={item._id} img={imgCard1} h={item.title} text={item.info} price={String(item.price)} />
+            ))}
          </div>
       </>
    );

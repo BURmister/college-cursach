@@ -15,8 +15,8 @@ type Props = {
 };
 
 const Header: FC<Props> = ({ activePage }) => {
-   const searchRef = useRef<HTMLInputElement>(null);
    const navigate = useNavigate()
+   const searchRef = useRef<HTMLInputElement>(null);
    const [localSearch, setLocalSearch] = useState('');
 
    const onSearchInput = (event: { target: HTMLInputElement }) => {
@@ -26,8 +26,6 @@ const Header: FC<Props> = ({ activePage }) => {
    };
 
    const clickOnSearch = () => {
-      //fetch => ----------------------- -- --  -- -- -- - - - - --- - -- - --------------------
-      // console.log(searchRef?.current?.value);
       navigate(searchRef?.current?.value === '' ? '/catalog' : `/search-result?search=${searchRef?.current?.value}`)
    }
 
@@ -36,14 +34,7 @@ const Header: FC<Props> = ({ activePage }) => {
          event.preventDefault();
          navigate(searchRef?.current?.value === '' ? '/catalog' : `/search-result?search=${searchRef?.current?.value}`);
       }
-      //fetch => ----------------------- -- --  -- -- -- - - - - --- - -- - --------------------
-      // console.log(searchRef?.current?.value);
    };
-
-   const submitForm = (event: any) => {
-      console.log(searchRef?.current?.value);
-      event.preventDefault();
-   }
 
    return (
       <header>

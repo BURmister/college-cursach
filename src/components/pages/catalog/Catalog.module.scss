@@ -26,7 +26,7 @@
 
             display: grid;
             grid-template-columns: 1fr;
-            gap: 5px;
+            gap: 15px;
 
             border: 2px solid rgba(255, 255, 255, 0.5);
             border-right: none;
@@ -34,8 +34,8 @@
 
             > label {
                position: relative;
-
                padding-left: 25px;
+               font-size: 16px;
                cursor: pointer;
 
                > legend {
@@ -48,7 +48,7 @@
 
                input[type="checkbox"] + span {
                   position: absolute;
-                  top: 0;
+                  top: center;
                   left: 0;
 
                   width: 17px;
@@ -62,7 +62,7 @@
                   content: '';
 
                   position: absolute;
-                  top: 45%;
+                  top: 42%;
                   left: 1px;
 
                   width: 15px;
