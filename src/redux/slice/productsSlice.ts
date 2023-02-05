@@ -16,7 +16,8 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async (p
       return data;
    }
    const typeFilter = params?.typeFilter?.length !== 0 && params?.typeFilter?.length !== undefined ? `typeFilter=${params?.typeFilter}&` : '';
-   const producerFilter = params?.producerFilter?.length !== 0 && params?.producerFilter?.length !== undefined ? `modelFilter=${params?.producerFilter}&` : '';
+   const producerFilter =
+      params?.producerFilter?.length !== 0 && params?.producerFilter?.length !== undefined ? `modelFilter=${params?.producerFilter}&` : '';
    const colorFilter = params?.colorFilter?.length !== 0 && params?.colorFilter?.length !== undefined ? `colorsFilter=${params?.colorFilter}&` : '';
    const { data } = await axios.get(`http://localhost:4200/api/catalog${queryParams}${typeFilter}${producerFilter}${colorFilter}`);
    return data;
@@ -30,6 +31,10 @@ interface IProducts {
       mode: string;
       price: number;
       colors: string[];
+      power: string;
+      cub: string;
+      year: string;
+      type: string;
    }[];
    status: 'loading' | 'success' | 'error';
 }

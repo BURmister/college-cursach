@@ -39,35 +39,35 @@ const Home: FC<props> = ({ setActivePage }) => {
                   <img src={imgArrow} />
                </h3>
             </Link>
-            <Link to="/catalog?type=vintage" title="винтаж">
+            <Link to="/catalog?typeFilter=vintage" title="винтаж">
                <img src={imgCard1} />
                <h3>
                   Винтаж
                   <img src={imgArrow} />
                </h3>
             </Link>
-            <Link to="/catalog?type=cross" title="кросс">
+            <Link to="/catalog?typeFilter=cross" title="кросс">
                <img src={imgCard2} />
                <h3>
                   кросс
                   <img src={imgArrow} />
                </h3>
             </Link>
-            <Link to="/catalog?type=sport" title="спорт">
+            <Link to="/catalog?typeFilter=sport" title="спорт">
                <img src={imgCard3} />
                <h3>
                   спорт
                   <img src={imgArrow} />
                </h3>
             </Link>
-            <Link to="/catalog?type=road" title="дорожные">
+            <Link to="/catalog?typeFilter=road" title="дорожные">
                <img src={imgCard4} />
                <h3>
                   дорожные
                   <img src={imgArrow} />
                </h3>
             </Link>
-            <Link to="/catalog?type=tur" title="эндуро">
+            <Link to="/catalog?typeFilter=enduro" title="эндуро">
                <img src={imgCard5} />
                <h3>
                   эндуро

@@ -15,6 +15,10 @@ interface IOneProduct {
       model: string;
       price: number;
       colors: string[];
+      power: string;
+      cub: string;
+      year: string;
+      type: string;
    } | null;
    status: 'loading' | 'success' | 'error';
 }
