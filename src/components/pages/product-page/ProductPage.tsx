@@ -44,7 +44,7 @@ const ProductPage: FC<props> = ({ setActivePage }) => {
       <>
          <h2>{product.title}</h2>
          <div className={styles.container}>
-            <Slider />
+            <Slider img={product.img}/>
             <div className={styles.text}>
                <div className={styles.information}>
                   <h3>основная информация</h3>

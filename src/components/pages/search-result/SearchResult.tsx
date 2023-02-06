@@ -6,8 +6,6 @@ import { fetchProducts, getProducts, productsStatus, updateStatus } from '../../
 import Card from './card/Card';
 
 import imgCard1 from './img/card1.jpg';
-import imgCard2 from './img/card2.png';
-import imgCard3 from './img/card3.webp';
 import styles from './SearchResult.module.scss';
 
 type props = {
@@ -51,7 +49,7 @@ const SearchResult: FC<props> = ({ setActivePage }) => {
          <h2>{products.length === 0 ? `модели по запросу < ${search} /> не найдены` : `результат по запросу < ${search} />`}</h2>
          <div className={styles.container}>
             {products.map((item, index) => (
-               <Card key={index} id={item._id} img={imgCard1} h={item.title} text={item.info} price={String(item.price)} />
+               <Card key={index} id={item._id} img={item.img} h={item.title} text={item.info} price={String(item.price)} />
             ))}
          </div>
       </>

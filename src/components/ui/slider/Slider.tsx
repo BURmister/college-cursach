@@ -9,7 +9,11 @@ import 'swiper/css/pagination';
 import styles from './Slider.module.scss'
 import card2 from './card2.png'
 
-const Slider: FC = () => {
+type props = {
+   img: string;
+}
+
+const Slider: FC<props> = ({img}) => {
    return (
       <Swiper
          modules={[Navigation, Autoplay, Pagination]}
@@ -25,13 +29,13 @@ const Slider: FC = () => {
          pagination={{ clickable: true }}
          navigation>
          <SwiperSlide className={styles.slide}>
-            <img src={card2} />
+            <img src={img} />
          </SwiperSlide>
          <SwiperSlide className={styles.slide}>
-            <img src={card2} />
+            <img src={img} />
          </SwiperSlide>
          <SwiperSlide className={styles.slide}>
-            <img src={card2} />
+            <img src={img} />
          </SwiperSlide>
       </Swiper>
    );

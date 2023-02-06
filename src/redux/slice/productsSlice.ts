@@ -35,6 +35,7 @@ interface IProducts {
       cub: string;
       year: string;
       type: string;
+      img: string;
    }[];
    status: 'loading' | 'success' | 'error';
 }

@@ -19,6 +19,7 @@ interface IOneProduct {
       cub: string;
       year: string;
       type: string;
+      img: string;
    } | null;
    status: 'loading' | 'success' | 'error';
 }
