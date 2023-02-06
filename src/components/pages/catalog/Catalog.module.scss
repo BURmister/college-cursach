@@ -116,10 +116,24 @@
       }
    }
 
+   .modelsNotFound {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 20px;
+   }
+
    .cards {
+      width: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 15px;
+
+      > span {
+         color: rgba(255, 255, 255, 0.9)
+      }
    }
 }
 

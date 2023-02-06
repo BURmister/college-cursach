@@ -48,9 +48,7 @@ const SearchResult: FC<props> = ({ setActivePage }) => {
 
    return (
       <>
-         <h2>
-            результат по запросу {'<'} {search} {'/>'}
-         </h2>
+         <h2>{products.length === 0 ? `модели по запросу < ${search} /> не найдены` : `результат по запросу < ${search} />`}</h2>
          <div className={styles.container}>
             {products.map((item, index) => (
                <Card key={index} id={item._id} img={imgCard1} h={item.title} text={item.info} price={String(item.price)} />

@@ -179,11 +179,15 @@ const Catalog: FC<props> = ({ setActivePage }) => {
                   </button>
                </form>
             </section>
-            <section className={styles.cards}>
-               {products.map((item, index) => (
-                  <Card key={index} id={item._id} img={imgCard1} h={item.title} text={item.info} price={String(item.price)} />
-               ))}
-            </section>
+            {products.length === 0 ? (
+               <h3 className={styles.modelsNotFound}>модели не найдены</h3>
+            ) : (
+               <section className={styles.cards}>
+                  {products.map((item, index) => (
+                     <Card key={index} id={item._id} img={imgCard1} h={item.title} text={item.info} price={String(item.price)} />
+                  ))}
+               </section>
+            )}
          </div>
       </>
    );
