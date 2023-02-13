@@ -22,7 +22,7 @@ const SearchResult: FC<props> = ({ setActivePage }) => {
    const dispatch = useAppDispatch();
 
    useEffect(() => {
-      setActivePage('search-result');
+      setActivePage('search');
       window.scrollTo(0, 0);
       if (window.location.search) {
          const search = searchParams.get('search');

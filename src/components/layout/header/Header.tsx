@@ -26,13 +26,13 @@ const Header: FC<Props> = ({ activePage }) => {
    };
 
    const clickOnSearch = () => {
-      navigate(searchRef?.current?.value === '' ? '/catalog' : `/search-result?search=${searchRef?.current?.value}`)
+      navigate(searchRef?.current?.value === '' ? '/catalog' : `/search?search=${searchRef?.current?.value}`)
    }
 
    const enterClick = (event: any) => {
       if (event.key === 'Enter') {
          event.preventDefault();
-         navigate(searchRef?.current?.value === '' ? '/catalog' : `/search-result?search=${searchRef?.current?.value}`);
+         navigate(searchRef?.current?.value === '' ? '/catalog' : `/search?search=${searchRef?.current?.value}`);
       }
    };
 

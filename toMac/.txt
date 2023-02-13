@@ -1,0 +1,105 @@
+{
+    "files.autoSave": "afterDelay",
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.editor.untitled.hint": "hidden",
+    "tabnine.experimentalAutoImports": true,
+    "workbench.iconTheme": "material-icon-theme",
+
+    // Настройки Prettier
+    "prettier.tabWidth": 3,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.semi": true,
+    "prettier.jsxBracketSameLine": true,
+    "prettier.printWidth": 150,
+    "prettier.bracketSpacing": true,
+
+    // Настройки ESLint
+    "eslint.packageManager": "yarn",
+    "eslint.format.enable": true,
+    "eslint.alwaysShowStatus": true,
+	"editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+
+    // Если шрифт поддерживает стрелочки и т.п. знаки, то включить их (лигатуры)
+	"editor.fontLigatures": true,
+
+    // Плавная анимация
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.fontSize": 16,
+    "editor.tabSize": 3,
+    "editor.guides.bracketPairs": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 3,
+    },   
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 3,
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 3,
+    },
+    "vscode-pets.petColor": "gray",
+    "vscode-pets.theme": "forest",
+    "vscode-pets.position": "explorer",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 3,
+    },
+    "git.autofetch": true,
+    "javascript.updateImportsOnFileMove.enabled": "always"
+}
+
+{
+	"Print to console": {
+		"scope": "javascript,typescript",
+		"prefix": "log",
+		"body": [
+			"console.log()",
+		],
+		"description": "Log output to console"
+	},
+	"TSX component": {
+		"prefix": "tfce",
+		"body": [
+			"import { FC, useState, useEffect } from 'react'",
+			"",
+	  
+			// "const ${1:NameOfComponent}${2:$TM_FILENAME_BASE} = () => {",      // option 1 works
+	  
+			"const $TM_FILENAME_BASE: FC = () => {",  // option 2 works
+			
+			"   return (",
+			"      ${1:<>Hello World</>}",
+			"   )",
+			"}",
+			"",
+			"export default $TM_FILENAME_BASE"  // uses option 2
+		 ],
+		 "description": "React.ts Component"
+	},
+	"React.js Component": {
+		"prefix": "rfce",
+		"body": [
+		  "import { useState, useEffect } from 'react'",
+		  "",
+	 
+		  // "const ${1:NameOfComponent}${2:$TM_FILENAME_BASE} = () => {",      // option 1 works
+	 
+		  "const $TM_FILENAME_BASE = () => {",  // option 2 works
+		  
+		  "   return (",
+		  "      ${1:<>Hello World</>}",
+		  "   )",
+		  "}",
+		  "",
+		  "export default $TM_FILENAME_BASE"  // uses option 2
+		],
+		"description": "React.js Component"
+	 }
+}

@@ -44,7 +44,7 @@ const ProductPage: FC<props> = ({ setActivePage }) => {
       <>
          <h2>{product.title}</h2>
          <div className={styles.container}>
-            <Slider img={product.img}/>
+            <Slider img={product.img} />
             <div className={styles.text}>
                <div className={styles.information}>
                   <h3>основная информация</h3>
@@ -52,7 +52,7 @@ const ProductPage: FC<props> = ({ setActivePage }) => {
                </div>
                <div className={styles.price}>
                   <h3>цена такого чуда</h3>
-                  <p>{product.price}$</p>
+                  <p>{product.price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')}$</p>
                </div>
                <div className={styles.feature}>
                   <h3>характеристики</h3>

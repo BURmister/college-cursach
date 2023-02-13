@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from 'react';
+import { FC, useEffect, useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 
@@ -12,6 +12,7 @@ import imgCard1 from './img/card1.jpg';
 import imgCard2 from './img/card2.png';
 import imgCard3 from './img/card3.webp';
 import styles from './Catalog.module.scss';
+import debounce from 'lodash.debounce';
 
 type props = {
    setActivePage: (value: React.SetStateAction<string>) => void;
@@ -27,6 +28,10 @@ const Catalog: FC<props> = ({ setActivePage }) => {
    const [typeFilter, setTypeFilter] = useState<string[]>([]);
    const [producerFilter, setProducerFilter] = useState<string[]>([]);
    const [colorFilter, setColorFilter] = useState<string[]>([]);
+   const [priceMin, setPriceMin] = useState<number>();
+   const [localMin, setLocalMin] = useState<number>(0);
+   const [priceMax, setPriceMax] = useState<number>();
+   const [localMax, setLocalMax] = useState<number>(100000000);
 
    const isMounted = useRef(false);
    const isSearch = useRef(false);
@@ -44,16 +49,19 @@ const Catalog: FC<props> = ({ setActivePage }) => {
 
    useEffect(() => {
       if (isMounted.current) {
+         // const queryMin = priceMin !== localMin && { minPrice: priceMin };
          const queryString = qs.stringify({
             typeFilter,
             modelFilter: producerFilter,
             colorsFilter: colorFilter,
+            minPrice: priceMin,
+            maxPrice: priceMax,
          });
          navigate(`?${queryString}`);
          console.log(queryString);
       }
       isMounted.current = true;
-   }, [typeFilter, producerFilter, colorFilter]);
+   }, [typeFilter, producerFilter, colorFilter, priceMin, priceMax]);
 
    //если был первый рендер, то проверяем URL-параметры и сохраняем в редуксе
    useEffect(() => {
@@ -73,12 +81,44 @@ const Catalog: FC<props> = ({ setActivePage }) => {
    useEffect(() => {
       if (!isSearch.current) {
          const fetchData = () => {
-            dispatch(fetchProducts({ typeFilter, producerFilter, colorFilter }));
+            dispatch(
+               fetchProducts({
+                  typeFilter,
+                  producerFilter,
+                  colorFilter,
+                  priceMin,
+                  priceMax,
+               }),
+            );
          };
          fetchData();
       }
       isSearch.current = false;
-   }, [typeFilter, producerFilter, colorFilter]);
+   }, [typeFilter, producerFilter, colorFilter, priceMin, priceMax]);
+
+   const updateMinPrice = useCallback(
+      debounce((number) => {
+         setPriceMin(number);
+      }, 1500),
+      [],
+   );
+
+   const updateMaxPrice = useCallback(
+      debounce((number) => {
+         setPriceMax(number);
+      }, 1500),
+      [],
+   );
+
+   const onMinInput = (event: { target: HTMLInputElement }) => {
+      setLocalMin(Number(event.target.value));
+      updateMinPrice(Number(event.target.value));
+   };
+
+   const onMaxInput = (event: { target: HTMLInputElement }) => {
+      setLocalMax(Number(event.target.value));
+      updateMaxPrice(Number(event.target.value));
+   };
 
    const addFilter = (
       type: string,
@@ -135,7 +175,7 @@ const Catalog: FC<props> = ({ setActivePage }) => {
                <h3>фильтры</h3>
                <form>
                   {filters.map((item, index) => (
-                     <div key={index}>
+                     <div className={styles.filters} key={index}>
                         <legend>{item.type}</legend>
                         {item?.filters.map((el, index) => (
                            <label key={index}>
@@ -162,12 +202,41 @@ const Catalog: FC<props> = ({ setActivePage }) => {
                         ))}
                      </div>
                   ))}
+                  <div>
+                     <legend>цена</legend>
+                     <label>
+                        <input
+                           className={styles.priceInput}
+                           type="number"
+                           placeholder="0"
+                           min="0"
+                           onChange={(event: { target: HTMLInputElement }) => onMinInput(event)}
+                           value={localMin === 0 ? '' : localMin}
+                        />
+                        минимальная цена
+                     </label>
+                     <label>
+                        <input
+                           className={styles.priceInput}
+                           type="number"
+                           placeholder="100000000"
+                           max="100000000"
+                           onChange={(event: { target: HTMLInputElement }) => onMaxInput(event)}
+                           value={localMax === 100000000 ? '' : localMax}
+                        />
+                        максимальная цена
+                     </label>
+                  </div>
                   <button
                      type="button"
                      onClick={() => {
                         setTypeFilter([]);
                         setProducerFilter([]);
                         setColorFilter([]);
+                        setPriceMin(0);
+                        setPriceMax(100000000);
+                        setLocalMin(0);
+                        setLocalMax(100000000);
                      }}>
                      сброс
                      <svg width="26" height="26" viewBox="0 -0.5 20 27" fill="none" xmlns="http://www.w3.org/2000/svg">

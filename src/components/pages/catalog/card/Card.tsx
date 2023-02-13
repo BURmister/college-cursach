@@ -22,7 +22,7 @@ const Card: FC<props> = ({ id, img, h, text, price }) => {
          </div>
          <p>{text}</p>
          <div className={styles.price}>
-            <h4>{price}$</h4>
+            <h4>{price.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g,'$1 ')}$</h4>
             <Link to={`/catalog/${id}`}>Подробнее</Link>
          </div>
       </div>
