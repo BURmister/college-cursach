@@ -1,26 +1,25 @@
+import { nanoid } from 'nanoid';
+import { stringify } from 'querystring';
 import { FC, useEffect, useState } from 'react';
 
 import styles from './AddProduct.module.scss';
+import NameInput from './name-input/NameInput';
 
 type props = {
    setActivePage: (value: React.SetStateAction<string>) => void;
 };
 
 const AdminPage: FC<props> = ({ setActivePage }) => {
-   const [amountPhoto, setAmountPhoto] = useState<{}[]>([{}])
+   const [amountPhoto, setAmountPhoto] = useState<{id: string, value: string | undefined}[]>([{id: nanoid(), value: undefined}])
 
    useEffect(() => {
       setActivePage('catalog/add');
       window.scrollTo(0, 0);
    }, []);
 
-   const isObjectEmpty = (objectName: {}) => {
-      return Object.keys(objectName).length === 0;
-   };
-
    const addPhotoInput = () => {
-      if (isObjectEmpty(amountPhoto[amountPhoto.length - 1]) && amountPhoto.length <= 10) {
-         setAmountPhoto([...amountPhoto, {}]);
+      if (amountPhoto[amountPhoto.length - 1].value !== undefined && amountPhoto.length <= 10) {
+         setAmountPhoto([...amountPhoto, { id: nanoid(), value: '' }]);
       }
    }
 
@@ -35,11 +34,11 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
             <span className={styles.image}>
                <label htmlFor="modelPhoto">Фото:</label>
                {amountPhoto.map((item, index) => (
-                  <input type="text" id="modelPhoto" name="modelPhoto" placeholder={`< ССЫЛКА НА ОДНО ФОТО />`} />
+                  <NameInput index={index} item={item} state={amountPhoto} setState={setAmountPhoto} />
                ))}
                <button
                   className={
-                     isObjectEmpty(amountPhoto[amountPhoto.length - 1]) && amountPhoto.length <= 10 ? styles.addPhoto : styles.disabledAddPhoto
+                     amountPhoto[amountPhoto.length - 1].value !== undefined && amountPhoto.length <= 10 ? styles.addPhoto : styles.disabledAddPhoto
                   }
                   type="button"
                   onClick={() => addPhotoInput()}>
@@ -53,7 +52,7 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
                </span>
                <span className={styles.price}>
                   <label htmlFor="modelPrice">цена такого чуда</label>
-                  <input id="modelPrice" name="modelPrice" placeholder="ЦЕНА" />
+                  <input id="modelPrice" type="number" name="modelPrice" placeholder="ЦЕНА" />
                </span>
                <div className={styles.feature}>
                   <h3>характеристики</h3>
