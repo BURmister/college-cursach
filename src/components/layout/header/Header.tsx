@@ -17,7 +17,7 @@ type Props = {
 const Header: FC<Props> = ({ activePage }) => {
    const navigate = useNavigate()
    const searchRef = useRef<HTMLInputElement>(null);
-   const [localSearch, setLocalSearch] = useState('');
+   const [localSearch, setLocalSearch] = useState<string>();
 
    const onSearchInput = (event: { target: HTMLInputElement }) => {
       setLocalSearch(event.target.value);
