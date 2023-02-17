@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
 
-export const fetchOneProduct = createAsyncThunk('oneProduct/fetchOneProduct', async (id: string)  => {
+export const fetchOneProduct = createAsyncThunk('oneProduct/fetchOneProduct', async (id: string) => {
    const { data } = await axios.get(`http://localhost:4200/api/catalog/${id}`);
    return data;
 });
@@ -19,7 +19,7 @@ interface IOneProduct {
       cub: string;
       year: string;
       type: string;
-      img: string;   
+      img: string;
    } | null;
    status: 'loading' | 'success' | 'error';
 }
