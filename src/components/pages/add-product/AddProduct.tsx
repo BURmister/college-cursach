@@ -1,4 +1,6 @@
 import { FC, useEffect, useState } from 'react';
+import { useAppSelector } from '../../../hooks/useRedux';
+import { isLoggedIn } from '../../../redux/slice/authSlice';
 
 import styles from './AddProduct.module.scss';
 // import NameInput from './name-input/NameInput';
@@ -23,6 +25,9 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
    // TODO colors arn't string
    const [modelColors, setModelColors] = useState<string>();
    const [modelYear, setModelYear] = useState<string>();
+
+   const isUser = useAppSelector(isLoggedIn);
+
 
    useEffect(() => {
       setActivePage('catalog/add');
@@ -70,6 +75,10 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
          alert('все поля должны быть заполнены!')
       }
    };
+
+   if (!isUser) {
+      return <h2>страница недоступна</h2>
+   }
 
    return (
       <>
@@ -231,7 +240,7 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
             <button type="button" onClick={() => submitForm()}>Применить</button>
          </form>
       </>
-   );
+   )
 };
 
 export default AdminPage;

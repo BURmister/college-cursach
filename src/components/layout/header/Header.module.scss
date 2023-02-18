@@ -4,9 +4,12 @@ header {
    background-color: rgb(29, 29, 29);
 
    .container {
+      position: relative;
+      
       margin: auto;
       height: 100%;
       max-width: 1200px;
+      
 
       display: flex;
       justify-content: space-between;
@@ -81,12 +84,12 @@ header {
             transition: all 0.2s ease-in-out;
 
             &:focus {
-               background-color: rgb(255, 255, 255);
+               background-color: rgb(242, 242, 242);
                box-shadow: 0px 0px 12px 1px black;
             }
 
             &:hover {
-               background-color: rgb(255, 255, 255);
+               background-color: rgb(242, 242, 242);
                box-shadow: 0px 0px 12px 1px black;
             }
          }
@@ -120,6 +123,102 @@ header {
       
          cursor: pointer;
          background-color: transparent;
+      }
+
+      > button {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+
+         background: none;
+         border: none;
+
+         cursor: pointer;
+
+         &:hover {
+            opacity: 0.5;
+            transition: all 0.2 ease-in-out;
+         }
+      }
+
+      .logout {
+         width: auto;
+
+         font-size: 18px;
+         color: white;
+      }
+
+      .wrapper {
+         position: absolute;
+         left: calc(50% - 175px);
+         top: calc(50vh - 100%);
+
+         width: 350px;
+         background-color: rgb(29, 29, 29);
+         box-shadow: 0px 0px 12px 1px black;
+
+         z-index: 13;   
+
+         > form {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+
+            > span {
+               padding: 10px 0 10px 0;
+               width: 320px;
+               justify-self: center;
+
+               > div {
+                  color: tomato;
+               }
+
+               > input {
+                  padding: 0;
+                  width: 320px;
+                  height: 30px; 
+
+                  display: flex;
+
+                  font-size: 16px;
+                  text-transform: uppercase;
+
+                  background-color: rgb(68, 68, 68);
+                  border: 1px solid rgb(199, 193, 193);
+
+                  transition: all 0.2s ease-in-out;
+
+                  &:focus {
+                     background-color: rgb(242, 242, 242);
+                     box-shadow: 0px 0px 12px 1px black;
+                  }
+
+                  &:hover {
+                     background-color: rgb(242, 242, 242);
+                     box-shadow: 0px 0px 12px 1px black;
+                  }
+               }
+            }
+
+            > button {
+               margin: 2px;
+               height: 40px;
+
+               color: white;
+               text-transform: uppercase;
+               border: 3px solid rgb(255, 145, 0);
+               background-color: inherit;
+
+               cursor: pointer;
+
+               &:hover {
+                  border: 3px solid rgb(249, 170, 67);
+                  background-color: rgb(249, 170, 67);
+                  box-shadow: 0px 0px 12px 1px black;
+                  transition: all 0.2s ease-in-out;
+               }
+            }
+         }
       }
    }
 }

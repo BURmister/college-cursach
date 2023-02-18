@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
 
 import styles from './Catalog.module.scss';
 import { deleteStatus, productTitle, updateDeleteStatus } from '../../../redux/slice/deleteProductSlice';
+import { isLoggedIn } from '../../../redux/slice/authSlice';
 
 type props = {
    setActivePage: (value: React.SetStateAction<string>) => void;
@@ -21,6 +22,7 @@ const Catalog: FC<props> = ({ setActivePage }) => {
    //TEST
    const [user, setUser] = useState(true);
 
+   const isUser = useAppSelector(isLoggedIn);
    const products = useAppSelector(getProducts);
    const statusProducts = useAppSelector(productsStatus);
    const statusFilters = useAppSelector(filtersStatus);
@@ -266,13 +268,13 @@ const Catalog: FC<props> = ({ setActivePage }) => {
             {products.length === 0 ? (
                <section className={styles.noModels}>
                   <h3 className={styles.modelsNotFound}>модели не найдены</h3>
-                  {user && <NewCard />}
+                  {isUser && <NewCard />}
                </section>
             ) : (
                <section className={styles.cards}>
-                  {user && <NewCard />}
+                  {isUser && <NewCard />}
                   {products.map((item, index) => (
-                     <Card key={index} id={item._id} img={item.img} h={item.title} text={item.info} price={String(item.price)} user={user} />
+                     <Card key={index} isUser={isUser} id={item._id} img={item.img} h={item.title} text={item.info} price={String(item.price)} />
                   ))}
                </section>
             )}

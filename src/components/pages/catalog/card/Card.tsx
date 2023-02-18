@@ -7,15 +7,15 @@ import styles from './Card.module.scss';
 import close from './img/close.svg';
 
 type props = {
+   isUser: boolean;
    id: string;
    img: string;
    h: string;
    text: string;
    price: string;
-   user: boolean;
 };
 
-const Card: FC<props> = ({ id, img, h, text, price, user }) => {
+const Card: FC<props> = ({ isUser, id, img, h, text, price }) => {
    const deleteProductTitle = useAppSelector(productTitle);
    const deleteProductStatus = useAppSelector(deleteStatus);
    const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ const Card: FC<props> = ({ id, img, h, text, price, user }) => {
                <img src={img} alt={`фото модели мотоцикла ${h}`} />
             </Link>
             <h3>{h}</h3>
-            {user && (
+            {isUser && (
                <button onClick={() => deleteModel(id)} type="button">
                   <img src={close} />
                </button>

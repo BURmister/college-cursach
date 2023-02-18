@@ -5,6 +5,7 @@ import productsReducer from './slice/productsSlice'
 import filtersSliceReducer from './slice/filtersSlice'
 import oneProductReducer from './slice/oneProductSlice'
 import deleteProductReducer from './slice/deleteProductSlice'
+import authReducer from './slice/authSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     filters: filtersSliceReducer,
     oneProduct: oneProductReducer,
     deleteProduct: deleteProductReducer,
+    auth: authReducer
   },
 })
 
