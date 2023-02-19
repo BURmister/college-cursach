@@ -8,15 +8,15 @@ export interface IAuthData {
    accessToken: string,
 }
 
-export const saveTokenStorage = (accessToken: string) => {
-   Cookies.set('accessToken', accessToken)
-}
+export const saveTokenStorage = (data: IAuthData) => {
+   Cookies.set('accessToken', data.accessToken)
+} 
 
 export const removeTokenStorage = () => {
    Cookies.remove('accessToken')
 }
 
 export const saveToStorage = (data: IAuthData) => {
-   saveTokenStorage(data.accessToken)
+   saveTokenStorage(data)
    localStorage.setItem('user', JSON.stringify(data.user))
 }

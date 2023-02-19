@@ -79,7 +79,7 @@ const Header: FC<Props> = ({ activePage }) => {
                </button>
             </form>
             {isUser ? (
-               <button className={styles.logout} type="button" onClick={() => dispatch(logout)}>
+               <button className={styles.logout} type="button" onClick={() => dispatch(logout())}>
                   выйти
                </button>
             ) : (

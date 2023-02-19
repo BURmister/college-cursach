@@ -1,4 +1,4 @@
-import { IAuthData, removeTokenStorage, saveToStorage } from './auth.helper';
+import { IAuthData, removeTokenStorage, saveTokenStorage, saveToStorage } from './auth.helper';
 import { axiosClassic } from '../api/interceptors';
 
 export const AuthService = {
@@ -8,7 +8,7 @@ export const AuthService = {
          password,
       });
 
-      if (response.data.accessToken) saveToStorage(response.data);
+      if (response.data.accessToken) saveTokenStorage(response.data);
 
       return response.data;
    },
@@ -19,13 +19,12 @@ export const AuthService = {
          password,
       });
 
-      if (response.data.accessToken) saveToStorage(response.data);
+      if (response.data.accessToken) saveTokenStorage(response.data);
 
       return response.data;
    },
 
    logout() {
       removeTokenStorage();
-      localStorage.removeItem('user');
    },
 };
