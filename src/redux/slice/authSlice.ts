@@ -34,7 +34,11 @@ const initialState: IAuthInitialState = {
 export const authSlice = createSlice({
    name: 'auth',
    initialState,
-   reducers: {},
+   reducers: {
+      refresh: (state) => {
+         state.isLoggedIn = true;
+      }
+   },
    extraReducers: (builder) => {
       builder
          .addCase(register.pending, (state) => {
@@ -75,5 +79,7 @@ export const authSlice = createSlice({
 
 export const isLoading = (state: RootState) => state.auth.isLoading;
 export const isLoggedIn = (state: RootState) => state.auth.isLoggedIn;
+
+export const { refresh } = authSlice.actions;
 
 export default authSlice.reducer;

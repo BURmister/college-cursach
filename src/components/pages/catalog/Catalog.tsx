@@ -19,9 +19,6 @@ type props = {
 };
 
 const Catalog: FC<props> = ({ setActivePage }) => {
-   //TEST
-   const [user, setUser] = useState(true);
-
    const isUser = useAppSelector(isLoggedIn);
    const products = useAppSelector(getProducts);
    const statusProducts = useAppSelector(productsStatus);

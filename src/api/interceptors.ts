@@ -1,16 +1,16 @@
 import axios from 'axios';
-import Cookies from 'js-cookie'
+import { urlAPI } from './api.constants';
 
 export const getContentType = () => ({
    'Content-Type': 'application/json',
 })
 
 export const axiosClassic = axios.create({
-   baseURL: `http://localhost:4200/api`,
+   baseURL: urlAPI,
    headers: getContentType(),
 });
 
 const instance = axios.create({
-   baseURL: `http://localhost:4200/api`,
+   baseURL: urlAPI,
    headers: getContentType(),
 });

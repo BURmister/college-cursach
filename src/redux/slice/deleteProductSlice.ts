@@ -1,9 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { urlAPI } from '../../api/api.constants';
 import { RootState } from '../store';
 
-export const deleteOneProduct = createAsyncThunk('deleteProduct/deleteOneProduct', async (id: string) => {
-   const { data } = await axios.put(`http://localhost:4200/api/catalog/delete/${id}`);
+type deleteProduct = {
+   id: string;
+   token: string;
+};
+
+export const deleteOneProduct = createAsyncThunk('deleteProduct/deleteOneProduct', async (args: deleteProduct) => {
+   const instance = axios.create({
+      headers: {
+         Authorization: 'Bearer ' + args.token,
+      },
+   });
+   const { data } = await instance.put(`${urlAPI}/catalog/delete/${args.id}`);
    return data;
 });
 

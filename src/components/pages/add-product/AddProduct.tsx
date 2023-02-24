@@ -1,12 +1,14 @@
-import { FC, useEffect, useState } from 'react';
-import { useAppSelector } from '../../../hooks/useRedux';
+import { FC, SetStateAction, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
 import { isLoggedIn } from '../../../redux/slice/authSlice';
+import Cookies from 'js-cookie';
 
 import styles from './AddProduct.module.scss';
+import { addProduct } from '../../../redux/slice/addProductSlice';
 // import NameInput from './name-input/NameInput';
 
 type props = {
-   setActivePage: (value: React.SetStateAction<string>) => void;
+   setActivePage: (value: SetStateAction<string>) => void;
 };
 
 const AdminPage: FC<props> = ({ setActivePage }) => {
@@ -23,11 +25,14 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
    const [modelEngine, setModelEngine] = useState<string>();
    const [modelCub, setModelCub] = useState<string>();
    // TODO colors arn't string
-   const [modelColors, setModelColors] = useState<string>();
+   const [modelColors, setModelColors] = useState<string[]>();
+   const [modelColorsLocal, setModelColorsLocal] = useState<string>();
    const [modelYear, setModelYear] = useState<string>();
 
-   const isUser = useAppSelector(isLoggedIn);
+   const dispatch = useAppDispatch();
 
+   const isUser = useAppSelector(isLoggedIn);
+   const token = Cookies.get('accessToken');
 
    useEffect(() => {
       setActivePage('catalog/add');
@@ -41,6 +46,11 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
    // }
 
    const submitForm = () => {
+      const addColors = () => {
+         const colors = modelColorsLocal?.split(',');
+         colors !== undefined ? setModelColors(colors) : setModelColors(['']);
+      };
+      addColors();
       if (
          modelHead &&
          photo1 &&
@@ -54,7 +64,7 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
          modelColors &&
          modelYear
       ) {
-         const json = {
+         const object = {
             title: modelHead,
             img: photo1,
             // photo2,
@@ -64,20 +74,20 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
             model: modelName,
             producer: modelProducer,
             type: modelType,
-            engine: modelEngine,
+            power: modelEngine,
             cub: modelCub,
-            colors: [modelColors],
+            colors: modelColors,
             year: modelYear,
          };
-
-         console.log(json)
+         token && dispatch(addProduct({ object, token }));
+         console.log(object);
       } else {
-         alert('все поля должны быть заполнены!')
+         alert('все поля должны быть заполнены!');
       }
    };
 
    if (!isUser) {
-      return <h2>страница недоступна</h2>
+      return <h2>страница недоступна</h2>;
    }
 
    return (
@@ -220,7 +230,7 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
                         type="text"
                         name="modelColor"
                         value={modelColors}
-                        onChange={(event) => setModelColors(event.target.value)}
+                        onChange={(event) => setModelColorsLocal(event.target.value)}
                         placeholder="ЦВЕТА (ЧЕРЕЗ ЗАПЯТУЮ)"
                      />
                   </span>
@@ -237,10 +247,12 @@ const AdminPage: FC<props> = ({ setActivePage }) => {
                   </span>
                </div>
             </div>
-            <button type="button" onClick={() => submitForm()}>Применить</button>
+            <button type="button" onClick={() => submitForm()}>
+               Применить
+            </button>
          </form>
       </>
-   )
+   );
 };
 
 export default AdminPage;

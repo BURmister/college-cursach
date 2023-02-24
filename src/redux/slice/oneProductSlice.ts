@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
+import { product } from '../types/productTypes';
 
 export const fetchOneProduct = createAsyncThunk('oneProduct/fetchOneProduct', async (id: string) => {
    const { data } = await axios.get(`http://localhost:4200/api/catalog/${id}`);
@@ -8,19 +9,7 @@ export const fetchOneProduct = createAsyncThunk('oneProduct/fetchOneProduct', as
 });
 
 interface IOneProduct {
-   oneProduct: {
-      _id: string;
-      title: string;
-      info: string;
-      model: string;
-      price: number;
-      colors: string[];
-      power: string;
-      cub: string;
-      year: string;
-      type: string;
-      img: string;
-   } | null;
+   oneProduct: product | null;
    status: 'loading' | 'success' | 'error';
 }
 

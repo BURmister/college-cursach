@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 import AppContext from './hooks/Context';
+import { useAppDispatch } from './hooks/useRedux';
+import { AuthService } from './services/auth.service';
 
 import Footer from './components/layout/footer/Footer';
 import Header from './components/layout/header/Header';
@@ -10,11 +14,20 @@ import Contacts from './components/pages/contacts/Contacts';
 import ProductPage from './components/pages/product-page/ProductPage';
 import SearchResult from './components/pages/search-result/SearchResult';
 import AddProduct from './components/pages/add-product/AddProduct';
+import { refresh } from './redux/slice/authSlice';
 
 import './App.css';
 
 function App() {
    const [activePage, setActivePage] = useState<string>('home');
+   const dispatch = useAppDispatch();
+
+   useEffect(() => {
+      const accessToken = Cookies.get('accessToken');
+      if (accessToken) {
+         dispatch(refresh());
+      }
+   }, []);
 
    return (
       <AppContext.Provider value>

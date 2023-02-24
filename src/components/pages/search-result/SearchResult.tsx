@@ -1,6 +1,7 @@
 import { FC, useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
+import { isLoggedIn } from '../../../redux/slice/authSlice';
 import { fetchProducts, getProducts, productsStatus, updateStatus } from '../../../redux/slice/productsSlice';
 
 import Card from './card/Card';
@@ -13,6 +14,7 @@ type props = {
 };
 
 const SearchResult: FC<props> = ({ setActivePage }) => {
+   const isUser = useAppSelector(isLoggedIn);
    const [search, setSearch] = useState<string>();
    const [searchParams, setSearchParams] = useSearchParams();
    const navigate = useNavigate();
@@ -49,7 +51,7 @@ const SearchResult: FC<props> = ({ setActivePage }) => {
          <h2>{products.length === 0 ? `модели по запросу < ${search} /> не найдены` : `результат по запросу < ${search} />`}</h2>
          <div className={styles.container}>
             {products.map((item, index) => (
-               <Card key={index} id={item._id} img={item.img} h={item.title} text={item.info} price={String(item.price)} />
+               <Card isUser={isUser} key={index} id={item._id} img={item.img} h={item.title} text={item.info} price={String(item.price)} />
             ))}
          </div>
       </>

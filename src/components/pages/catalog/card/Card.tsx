@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux';
@@ -22,9 +23,11 @@ const Card: FC<props> = ({ isUser, id, img, h, text, price }) => {
 
    console.log(deleteProductStatus);
 
+   const token = Cookies.get('accessToken');
+
    const deleteModel = (id: string) => {
       if (confirm(`удалить модель: ${h}`)) {
-         dispatch(deleteOneProduct(id));
+         token && dispatch(deleteOneProduct({ id, token}));
       }
    };
 
